@@ -16,6 +16,10 @@
 </head>
 
 <body>
+    <script>
+  if (localStorage.getItem("pd_access") !== "yes") {
+    window.location.href = "";
+  }
   <div class="topbar">
     <div class="wrap nav">
       <div class="brand">
@@ -178,8 +182,4 @@
   <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
 </body>
 </html>
-<script>
-  if(localStorage.getItem("pd_access") !== "yes"){
-    window.location.href = "/login.html";
-  }
-</script>
+
