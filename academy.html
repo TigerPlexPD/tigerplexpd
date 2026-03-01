@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — Академия</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(255,255,255,.10);
+      --shadow1: 0 22px 55px rgba(0,0,0,.45);
+      --shadow2: 0 12px 26px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.28);
+      --radius: 18px;
+    }
+
+    .frame3d{
+      margin-top: 14px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2), var(--inset);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .frame3d iframe{
+      width: 100%;
+      height: 78vh;
+      border: 0;
+      display: block;
+      background: rgba(0,0,0,.25);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn3d{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: var(--shadow2), var(--inset);
+    }
+    .btn3d:active{ transform: translateY(1px); }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ 1) Основният сайт логин -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <!-- ✅ 2) Вторият (само за Академия) -->
+  <script>
+    if (localStorage.getItem("academy_access") !== "yes") {
+      window.location.href = "academy-login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="index.html">Начало</a>
+        <a class="chip" href="handbook/index.html">Handbook</a>
+        <a class="chip" href="codes.html">10-кодове</a>
+        <a class="chip" href="badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>Академия</h2>
+      <p class="small">Интегрирана таблица (Google Sheets) за обучение/материали.</p>
+
+      <div class="hr"></div>
+
+      <div class="frame3d">
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRiCNCaBOCHDr6i1o2aICKbngkJoNyUTpphFtjEfk64EIQ6gURcmdb3ems1ifPoXJB0BEmyo8tkfqk8/pubhtml"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="TigerPlexPD — Академия (Таблица)">
+        </iframe>
+      </div>
+
+      <div class="actions">
+        <button class="btn3d" type="button" onclick="window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vRiCNCaBOCHDr6i1o2aICKbngkJoNyUTpphFtjEfk64EIQ6gURcmdb3ems1ifPoXJB0BEmyo8tkfqk8/pubhtml','_blank')">
+          Отвори в нов прозорец
+        </button>
+
+        <button class="btn3d" type="button" onclick="academyLogout()">
+          Изход от Академия
+        </button>
+      </div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    function academyLogout(){
+      localStorage.removeItem("academy_access");
+      window.location.href = "academy-login.html";
+    }
+  </script>
+</body>
+</html>
