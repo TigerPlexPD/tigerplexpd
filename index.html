@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+   <script>
+  if (localStorage.getItem("pd_access") !== "yes") {
+    window.location.href = "";
+  }
   <div class="topbar">
     <div class="wrap nav">
       <div class="brand">
@@ -24,10 +28,6 @@
       </div>
     </div>
   </div>
-     <script>
-  if (localStorage.getItem("pd_access") !== "yes") {
-    window.location.href = "";
-  }
   <main class="wrap">
     <div class="card page">
       <h2>Добре дошли в TigerPlexPD</h2>
