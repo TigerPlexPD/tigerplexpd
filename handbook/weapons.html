@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — Оръжия на полиция</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* ===== 3D Weapons Page ===== */
+    :root{
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(255,255,255,.10);
+      --shadow1: 0 22px 55px rgba(0,0,0,.45);
+      --shadow2: 0 12px 26px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.28);
+      --radius: 18px;
+
+      --accentA: rgba(79,140,255,.95);
+      --accentB: rgba(124,58,237,.90);
+      --warnA: rgba(255,90,90,.95);
+      --warnB: rgba(255,170,90,.90);
+    }
+
+    .weapons{
+      line-height: 1.65;
+      letter-spacing: .12px;
+      color: rgba(255,255,255,.88);
+    }
+
+    .weapons h2{
+      text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .weapons .small{
+      font-size: 13px;
+      color: rgba(255,255,255,.72);
+    }
+
+    /* Section title */
+    .weapons h3{
+      margin: 22px 0 12px;
+      font-size: 16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-shadow: 0 2px 0 rgba(0,0,0,.35);
+    }
+    .weapons h3::before{
+      content:"";
+      width:10px;height:10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--accentA), var(--accentB));
+      box-shadow: 0 10px 22px rgba(79,140,255,.25);
+    }
+    .weapons h3::after{
+      content:"";
+      flex:1;height:1px;
+      background: linear-gradient(to right, rgba(255,255,255,.25), transparent);
+    }
+
+    /* 3D card */
+    .card3d{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2), var(--inset);
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card3d::before{
+      content:"";
+      position:absolute;
+      top:-120px;left:-120px;
+      width:260px;height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 60%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+
+    /* Numbered list (3D) */
+    .weapons ol{
+      list-style:none;
+      padding:0;
+      margin:0;
+      counter-reset: step;
+    }
+    .weapons li{
+      counter-increment: step;
+      margin:14px 0;
+      padding-left:60px;
+      position:relative;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+    }
+    .weapons li::before{
+      content: counter(step);
+      position:absolute;
+      left:0;top:0;
+      width:44px;height:44px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      color:#0b0f1a;
+      background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.12));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 14px 26px rgba(0,0,0,.30), var(--inset);
+    }
+
+    .weapons b{
+      color:#fff;
+    }
+
+    /* Warning box */
+    .warning{
+      margin-top:18px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,90,90,.18), rgba(255,170,90,.10));
+      box-shadow: var(--shadow1), var(--inset);
+      padding:16px;
+    }
+    .warning h4{
+      margin:0 0 8px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:15px;
+      text-shadow: 0 2px 0 rgba(0,0,0,.35);
+    }
+    .warning h4::before{
+      content:"";
+      width:12px;height:12px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--warnA), var(--warnB));
+      box-shadow: 0 10px 22px rgba(255,90,90,.35);
+    }
+    .warning ul{
+      margin:8px 0 0 18px;
+    }
+    .warning li{
+      margin:8px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Login gate (страница е в /handbook) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page weapons">
+      <h2>ОРЪЖИЯ НА ПОЛИЦИЯ</h2>
+      <p class="small">
+        Ескалацията на сила при Police RP следва да бъде постепенна и съобразена със заплахата.
+      </p>
+
+      <div class="hr"></div>
+
+      <h3>Степени на използване на сила</h3>
+      <div class="card3d">
+        <ol>
+          <li>
+            <b>Вербална комуникация</b> – това е първото оръжие, към което всеки полицай трябва да прибегне.
+            Винаги първо опитайте да разрешите ситуацията вербално, преди да прибегнете към други по-сериозни мерки.
+          </li>
+
+          <li>
+            <b>Палка</b> – една стъпка повече от използването на ръце.
+            Ако някой ви нападне с голи ръце, това е оръжието, което следва да използвате.
+          </li>
+
+          <li>
+            <b>Тейзър</b> – не-леталната опция на полицията.
+            Винаги опитвайте с това оръжие преди да прибегнете към летална сила.
+            При нападение с нож, бухалка или други тъпи/остри предмети,
+            правилната реакция е използването на тейзър.
+          </li>
+
+          <li>
+            <b>Летално оръжие</b> – последната опция в арсенала на полицията.
+            Прилага се <b>само</b> ако вашият или чуждият живот са в непосредствена опасност.
+          </li>
+        </ol>
+      </div>
+
+      <div class="warning">
+        <h4>ВНИМАНИЕ</h4>
+        <ul>
+          <li>Употребата на оръжия трябва да отговаря на приложената заплаха.</li>
+          <li>Ако срещу вас има лице с пистолет, е <b>неприемливо</b> (освен в изключителни ситуации)
+              да извадите Assault Rifle или SMG.</li>
+          <li>Стремете се да уравновесявате силите, използвайки оръжия,
+              отговарящи на тези, използвани от другата страна.</li>
+          <li>Ако лице се движи с пистолет в ръката и след като го предупредите да го прибере и той не го направи, може да използвате летално оръжие</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
