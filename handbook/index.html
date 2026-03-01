@@ -6,47 +6,60 @@
   <title>TigerPlexPD — Handbook</title>
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
- <script>
-  if (localStorage.getItem("pd_access") !== "yes") {
-    window.location.href = "";
-  }
-</script>
-<div class="topbar">
-  <div class="wrap nav">
-    <div class="brand">
-      <div class="logo">TP</div>
-      <div>
-        <h1>TigerPlexPD</h1>
-        <p>Police RP Handbook</p>
+  <!-- ✅ Site-wide gate (страница в папка → ../login.html) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
       </div>
     </div>
-    <div class="links">
-      <a class="chip" href="../index.html">Начало</a>
-      <a class="chip" href="index.html">Handbook</a>
-      <a class="chip" href="../codes.html">10-кодове</a>
-      <a class="chip" href="../badges.html">Баджове</a>
+  </div>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>Police Handbook</h2>
+      <p>Избери секция:</p>
+
+      <ul>
+        <li><a href="rules.html">📘 Общи правила</a></li>
+        <li><a href="ranks.html">🎖️ Рангове и структура</a></li>
+        <li><a href="radio.html">📡 Радио протокол</a></li>
+        <li><a href="use-of-force.html">⚠️ Use of Force</a></li>
+      </ul>
+
+      <!-- (по желание) Logout -->
+      <div style="height:12px"></div>
+      <button class="ctaPrimary" onclick="logout()" type="button">Изход</button>
     </div>
-  </div>
-</div>
 
-<main class="wrap">
-  <div class="card page">
-    <h2>Police Handbook</h2>
-    <p>Избери секция:</p>
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
 
-    <ul>
-      <li><a href="rules.html">📘 Общи правила</a></li>
-      <li><a href="ranks.html">🎖️ Рангове и структура</a></li>
-      <li><a href="radio.html">📡 Радио протокол</a></li>
-      <li><a href="use-of-force.html">⚠️ Use of Force</a></li>
-    </ul>
-  </div>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-  <footer>© <span id="y"></span> TigerPlexPD</footer>
-</main>
-
-<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+    function logout(){
+      localStorage.removeItem("pd_access");
+      window.location.href = "../login.html";
+    }
+  </script>
 </body>
 </html>
-
