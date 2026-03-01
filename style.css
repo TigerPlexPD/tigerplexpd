@@ -130,3 +130,8 @@ td.code.orange{ background: var(--c-orange); }
   .codes-wrap{ grid-template-columns: 1fr; }
   td.code{ width:110px; }
 }
+<script>
+  if(localStorage.getItem("pd_access") !== "yes"){
+    window.location.href = "/login.html";
+  }
+</script>
