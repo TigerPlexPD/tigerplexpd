@@ -132,6 +132,6 @@ td.code.orange{ background: var(--c-orange); }
 }
 <script>
   if(localStorage.getItem("pd_access") !== "yes"){
-    window.location.href = "/login.html";
+    window.location.href = "";
   }
 </script>
