@@ -6,7 +6,6 @@
   <title>TigerPlexPD — 10-кодове</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Ако предпочиташ да НЕ пипаш style.css, сложи CSS-а от т.1 тук -->
   <style>
     :root{
       --c-green:#6aa84f; --c-yellow:#ffd966; --c-red:#ff0000; --c-orange:#f6b26b;
@@ -27,6 +26,14 @@
 </head>
 
 <body>
+  <!-- ✅ Site-wide gate (за project pages работи с относителен път) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      // ако сайтът ти е project pages, това ще стане: /tigerplexpd/login.html
+      window.location.href = "login.html";
+    }
+  </script>
+
   <div class="topbar">
     <div class="wrap nav">
       <div class="brand">
@@ -38,17 +45,14 @@
       </div>
       <div class="links">
         <a class="chip" href="index.html">Начало</a>
-        <a class="chip" href="handbook.html">Handbook</a>
+        <a class="chip" href="handbook/">Handbook</a>
         <a class="chip" href="sop.html">SOP</a>
         <a class="chip" href="codes.html">10-кодове</a>
         <a class="chip" href="badges.html">Баджове</a>
       </div>
     </div>
   </div>
-     <script>
-  if (localStorage.getItem("pd_access") !== "yes") {
-    window.location.href = "";
-  }
+
   <main class="wrap">
     <div class="card page">
       <h2>10-кодова система</h2>
@@ -110,7 +114,7 @@
             <tr><td class="code orange">10-90 CE</td><td class="desc">Обир на Чейндж бюро</td></tr>
             <tr><td class="code orange">10-90 C</td><td class="desc">Обир на Контейнери</td></tr>
 
-            <tr><td class="code red">10-90 CS</td><td class="desc">Обир на Казинo</td></tr>
+            <tr><td class="code red">10-90 CS</td><td class="desc">Обир на Казино</td></tr>
             <tr><td class="code red">10-90 RB</td><td class="desc">Обир на Палето Банка</td></tr>
             <tr><td class="code red">10-90 PB</td><td class="desc">Обир на Paleto Банка</td></tr>
 
@@ -122,7 +126,7 @@
           </tbody>
         </table>
 
-        <!-- ДЯСНА КОЛОНА (Код-1..Код-6) -->
+        <!-- ДЯСНА КОЛОНА -->
         <table class="codes-table">
           <tbody>
             <tr><td class="code green">Код-1</td><td class="desc">Без никакъв сигнал</td></tr>
@@ -139,11 +143,8 @@
     <footer>© <span id="y"></span> TigerPlexPD</footer>
   </main>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-   <script>
-  if (localStorage.getItem("pd_access") !== "yes") {
-    window.location.href = "";
-  
-</script>
