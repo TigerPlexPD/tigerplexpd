@@ -6,12 +6,15 @@
   <title>TigerPlexPD — Начало</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
- <script>
-  if (localStorage.getItem("pd_access") !== "yes") {
-    window.location.href = "";
-  }
-</script>
+  <!-- ✅ Site-wide gate -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "login.html";
+    }
+  </script>
+
   <div class="topbar">
     <div class="wrap nav">
       <div class="brand">
@@ -22,6 +25,7 @@
         </div>
       </div>
       <div class="links">
+        <a class="chip" href="handbook/">Handbook</a>
         <a class="chip" href="sop.html">SOP</a>
         <a class="chip" href="codes.html">10-кодове</a>
         <a class="chip" href="badges.html">Баджове</a>
@@ -29,18 +33,29 @@
       </div>
     </div>
   </div>
+
   <main class="wrap">
     <div class="card page">
       <h2>Добре дошли в TigerPlexPD</h2>
       <p>Тук е официалният наръчник за Police RP: процедури (SOP), 10-кодове и страница с баджове (таблица).</p>
       <div class="hr"></div>
       <div class="note"><b>Disclaimer:</b> Този сайт е за Roleplay общност и няма връзка с реални полицейски институции.</div>
+
+      <!-- (по желание) logout бутон -->
+      <div style="height:12px"></div>
+      <button class="ctaPrimary" onclick="logout()" type="button">Изход</button>
     </div>
 
     <footer>© <span id="y"></span> TigerPlexPD</footer>
   </main>
 
-  <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    function logout(){
+      localStorage.removeItem("pd_access");
+      window.location.href = "login.html";
+    }
+  </script>
 </body>
 </html>
-
