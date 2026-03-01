@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TigerPlexPD — Баджове</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="index.html">Начало</a>
+        <a class="chip" href="handbook.html">Handbook</a>
+        <a class="chip" href="sop.html">SOP</a>
+        <a class="chip" href="codes.html">10-кодове</a>
+        <a class="chip" href="badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>Баджове (Badge Registry)</h2>
+      <p>Тази таблица се зарежда директно от Google Sheets.</p>
+      <div class="hr"></div>
+
+      <!-- ВАЖНО: най-добре работи с "Publish to the web" -->
+      <iframe
+        height="720"
+        src="https://docs.google.com/spreadsheets/d/e/REPLACE_WITH_PUBLISHED_ID/pubhtml?gid=1849297311&amp;single=true&amp;widget=true&amp;headers=false">
+      </iframe>
+
+      <div class="hr"></div>
+      <p class="muted">
+        Ако не се вижда таблицата: направи <b>File → Share → Publish to the web</b> и ми прати линка, който ти дава (той е различен от /edit линка).
+      </p>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>
