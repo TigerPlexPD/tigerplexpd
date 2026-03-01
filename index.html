@@ -39,3 +39,8 @@
   <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
 </body>
 </html>
+<script>
+  if(localStorage.getItem("pd_access") !== "yes"){
+    window.location.href = "/login.html";
+  }
+</script>
