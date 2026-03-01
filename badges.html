@@ -45,3 +45,12 @@
   <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
 </body>
 </html>
+<script>
+  const PASSWORD = "100"; // <-- смени паролата
+
+  const input = prompt("🔐 Въведи парола за достъп:");
+  if (input !== PASSWORD) {
+    document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:20%'>⛔ Нямаш достъп</h2>";
+    throw new Error("Access denied");
+  }
+</script>
