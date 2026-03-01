@@ -3,376 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>TigerPlexPD — Police RP Handbook</title>
-  <meta name="description" content="TigerPlexPD — Police RP Handbook, SOP, 10-кодове, глоби и процедури." />
-
-  <style>
-    :root{
-      --bg: #0b1220;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --line: rgba(255,255,255,.12);
-      --accent: #4f8cff;
-      --accent2:#7c3aed;
-      --ok:#22c55e;
-      --shadow: 0 14px 40px rgba(0,0,0,.35);
-      --radius: 18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(79,140,255,.25), transparent 55%),
-        radial-gradient(900px 500px at 85% 20%, rgba(124,58,237,.22), transparent 55%),
-        radial-gradient(900px 500px at 50% 95%, rgba(34,197,94,.10), transparent 60%),
-        var(--bg);
-      line-height:1.5;
-    }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:1100px; margin:0 auto; padding:22px}
-    .topbar{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(to bottom, rgba(11,18,32,.82), rgba(11,18,32,.45));
-      border-bottom:1px solid var(--line);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px;
-    }
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{
-      width:42px; height:42px; border-radius:14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: var(--shadow);
-      display:grid; place-items:center;
-      font-weight:800;
-    }
-    .brand h1{font-size:16px; margin:0}
-    .brand p{margin:0; font-size:12px; color:var(--muted)}
-    .links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-    .chip{
-      padding:10px 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius:999px;
-      font-size:13px;
-      transition:.15s ease;
-    }
-    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.07)}
-    .btn{
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(79,140,255,.35);
-      background: linear-gradient(135deg, rgba(79,140,255,.25), rgba(124,58,237,.20));
-      box-shadow: 0 10px 24px rgba(79,140,255,.12);
-      font-size:13px;
-      transition:.15s ease;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .hero{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      padding:26px 0 10px;
-    }
-    .card{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,.03));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .heroMain{padding:22px}
-    .kicker{
-      display:inline-flex; gap:10px; align-items:center;
-      padding:7px 10px; border-radius:999px;
-      border:1px solid rgba(34,197,94,.35);
-      background: rgba(34,197,94,.10);
-      color: rgba(255,255,255,.86);
-      font-size:12px;
-      margin-bottom:12px;
-    }
-    .kdot{width:8px;height:8px;border-radius:99px;background:var(--ok)}
-    .hero h2{margin:0 0 8px; font-size:30px; letter-spacing:-.02em}
-    .hero p{margin:0 0 14px; color:var(--muted)}
-    .ctaRow{display:flex; gap:10px; flex-wrap:wrap}
-    .ctaPrimary{
-      padding:12px 14px;
-      border-radius:14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border:0;
-      color:white;
-      font-weight:700;
-      box-shadow: 0 14px 30px rgba(124,58,237,.20);
-    }
-    .ctaPrimary:hover{filter:brightness(1.03)}
-    .ctaGhost{
-      padding:12px 14px;
-      border-radius:14px;
-      background: rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      color:var(--text);
-      font-weight:650;
-    }
-    .heroSide{padding:18px}
-    .search{
-      display:flex; gap:10px; align-items:center;
-      padding:12px;
-      background: rgba(0,0,0,.18);
-      border:1px solid var(--line);
-      border-radius: 14px;
-    }
-    .search input{
-      width:100%;
-      background: transparent;
-      border:0;
-      outline:none;
-      color:var(--text);
-      font-size:14px;
-    }
-    .muted{color:var(--muted)}
-    .list{
-      margin-top:12px;
-      display:grid; gap:10px;
-    }
-    .item{
-      padding:12px;
-      border-radius:14px;
-      background: rgba(255,255,255,.04);
-      border:1px solid var(--line);
-      transition:.15s ease;
-    }
-    .item:hover{transform: translateY(-1px); background: rgba(255,255,255,.06)}
-    .item b{display:block; margin-bottom:3px}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin:18px 0;
-    }
-    .span4{grid-column: span 4}
-    .span6{grid-column: span 6}
-    .span12{grid-column: span 12}
-    .panel{padding:18px}
-    .panel h3{margin:0 0 6px; font-size:16px}
-    .panel p{margin:0; color:var(--muted); font-size:13px}
-    .mini{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      margin-top:12px;
-    }
-    .badge{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(79,140,255,.35);
-      background: rgba(79,140,255,.12);
-    }
-    .tableWrap{overflow:auto; border-radius:14px; border:1px solid var(--line)}
-    table{width:100%; border-collapse:collapse; min-width:720px; background: rgba(0,0,0,.10)}
-    th,td{padding:12px 12px; border-bottom:1px solid rgba(255,255,255,.10); text-align:left; font-size:13px}
-    th{color: rgba(255,255,255,.82); background: rgba(255,255,255,.05); position:sticky; top:0}
-    tr:hover td{background: rgba(255,255,255,.03)}
-    footer{
-      margin:18px 0 30px;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
-    }
-    @media (max-width: 900px){
-      .hero{grid-template-columns: 1fr; }
-      .span4{grid-column: span 12}
-      .span6{grid-column: span 12}
-      table{min-width: 620px}
-    }
-  </style>
+  <title>TigerPlexPD — Начало</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Topbar -->
   <div class="topbar">
     <div class="wrap nav">
       <div class="brand">
         <div class="logo">TP</div>
         <div>
           <h1>TigerPlexPD</h1>
-          <p>Police RP Handbook • SOP • Codes • Fines</p>
+          <p>Police RP Handbook • SOP • Codes • Badges</p>
         </div>
       </div>
-
       <div class="links">
-        <a class="chip" href="#handbook">Handbook</a>
-        <a class="chip" href="#sop">SOP</a>
-        <a class="chip" href="#codes">10-кодове</a>
-        <a class="chip" href="#fines">Глоби</a>
-        <a class="btn" href="#contact">Контакти</a>
+        <a class="chip" href="handbook.html">Handbook</a>
+        <a class="chip" href="sop.html">SOP</a>
+        <a class="chip" href="codes.html">10-кодове</a>
+        <a class="chip" href="badges.html">Баджове</a>
+        <a class="btn" href="https://discord.gg/CHANGE-ME" target="_blank" rel="noopener">Discord</a>
       </div>
     </div>
   </div>
 
   <main class="wrap">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="card heroMain">
-        <div class="kicker"><span class="kdot"></span> Online • Updated Handbook</div>
-        <h2>Police RP Handbook, подреден и лесен за ползване.</h2>
-        <p>
-          Всичко важно на едно място: SOP процедури, радио протокол, 10-кодове и таблици с глоби.
-          Подходящо за телефон и Discord.
-        </p>
+    <div class="card page">
+      <h2>Добре дошли в TigerPlexPD</h2>
+      <p>Тук е официалният наръчник за Police RP: процедури (SOP), 10-кодове и страница с баджове (таблица).</p>
+      <div class="hr"></div>
+      <div class="note"><b>Disclaimer:</b> Този сайт е за Roleplay общност и няма връзка с реални полицейски институции.</div>
+    </div>
 
-        <div class="ctaRow">
-          <a class="ctaPrimary" href="#handbook">Отвори Handbook</a>
-          <a class="ctaGhost" href="#fines">Виж таблицата с глоби</a>
-        </div>
-
-        <div class="mini">
-          <div>
-            <b>Disclaimer</b>
-            <span class="muted">Този сайт е за Roleplay общност и няма връзка с реални полицейски институции.</span>
-          </div>
-          <span class="badge">RP Only</span>
-        </div>
-      </div>
-
-      <div class="card heroSide">
-        <div class="search" title="Това търсене е само визуално (демо). Ако искаш истинско търсене - казваш и ще добавя JS.">
-          🔎
-          <input placeholder="Търси: SOP, 10-код, глоба…" />
-        </div>
-
-        <div class="list">
-          <a class="item" href="#sop">
-            <b>📘 SOP (Процедури)</b>
-            <span class="muted">Traffic stop, arrest, pursuit, use of force.</span>
-          </a>
-          <a class="item" href="#codes">
-            <b>📡 10-кодове</b>
-            <span class="muted">Радио протокол и стандартни кодове.</span>
-          </a>
-          <a class="item" href="#fines">
-            <b>🧾 Глоби и санкции</b>
-            <span class="muted">Таблица с нарушения, членове и санкции.</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick sections -->
-    <section class="grid">
-      <div class="card panel span4" id="handbook">
-        <h3>📗 Handbook</h3>
-        <p>Основни правила за служители, етика, облекло, поведение и докладване.</p>
-      </div>
-
-      <div class="card panel span4" id="sop">
-        <h3>📘 SOP</h3>
-        <p>Стъпка по стъпка процедури: проверки, задържане, преследване, обиск.</p>
-      </div>
-
-      <div class="card panel span4" id="codes">
-        <h3>📡 10-кодове</h3>
-        <p>Списък с радио кодове и кратки съобщения за патрул.</p>
-      </div>
-
-      <div class="card panel span12" id="fines">
-        <h3>🧾 Примерна таблица (Глоби)</h3>
-        <p>Това е пример. Кажи ми вашите правила/суми и ще я направим 1:1 за вашия сървър.</p>
-        <div style="height:12px"></div>
-
-        <div class="tableWrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Нарушение</th>
-                <th>Код</th>
-                <th>Глоба</th>
-                <th>Задържане</th>
-                <th>Бележка</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Превишена скорост (леко)</td>
-                <td>TRF-01</td>
-                <td>$250</td>
-                <td>—</td>
-                <td>+ предупреждение при първо</td>
-              </tr>
-              <tr>
-                <td>Опасно шофиране</td>
-                <td>TRF-07</td>
-                <td>$1500</td>
-                <td>10 мин</td>
-                <td>Възможна конфискация при рецидив</td>
-              </tr>
-              <tr>
-                <td>Неподчинение на полицай</td>
-                <td>CR-12</td>
-                <td>$2000</td>
-                <td>15 мин</td>
-                <td>Ескалация при съпротива</td>
-              </tr>
-              <tr>
-                <td>Притежание на нелегално оръжие (RP)</td>
-                <td>CR-31</td>
-                <td>$5000</td>
-                <td>25 мин</td>
-                <td>Съобразено с вашите правила</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card panel span6">
-        <h3>🧠 Как да ползваш сайта</h3>
-        <p class="muted">
-          Постави линка в Discord. Ползвайте секциите като “официална документация”.
-          Можем да добавим отделни страници за всяка тема.
-        </p>
-        <div class="mini">
-          <div>
-            <b>Tip</b>
-            <span class="muted">Ако искаш “истинско търсене” и филтър по таблици — казваш.</span>
-          </div>
-          <span class="badge">Next</span>
-        </div>
-      </div>
-
-      <div class="card panel span6" id="contact">
-        <h3>☎️ Контакти</h3>
-        <p class="muted">Сложи Discord линк и име на отдела/командването.</p>
-        <div class="mini">
-          <div>
-            <b>Discord</b>
-            <span class="muted">Смени линка в кода (виж по-долу).</span>
-          </div>
-          <span class="badge">Edit</span>
-        </div>
-
-        <div style="height:10px"></div>
-        <!-- Смени линка тук -->
-        <a class="ctaPrimary" href="https://discord.gg/CHANGE-ME" target="_blank" rel="noopener">Отвори Discord</a>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="y"></span> TigerPlexPD • RP Handbook • Not affiliated with real institutions.
-    </footer>
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
   </main>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("y").textContent=new Date().getFullYear();</script>
 </body>
 </html>
