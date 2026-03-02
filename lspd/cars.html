@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>LSPD — Патрулни коли</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
 
+<body>
+  <!-- ✅ Site-wide gate (парола за целия сайт) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>🚓 LSPD — Патрулни коли по рангове</h2>
+      <p>Коли, разрешени за използване според ранга. Натисни върху снимка за уголемяване.</p>
+
+      <div class="hr"></div>
+
+      <!-- Probationary Officer -->
+      <section class="rankBlock">
+        <div class="rankHead">
+          <h3>Probationary Officer</h3>
+        </div>
+
+        <div class="uGrid">
+          <button class="uCard" type="button"
+                  data-img="https://i.nuuls.com/2AvWI.png"
+                  data-title="Probationary Officer — Patrol Vehicle">
+            <div class="uCardInner">
+              <img class="uImg" src="https://i.nuuls.com/2AvWI.png" alt="Probationary Officer vehicle">
+              <div class="uCaption">Probationary — Patrol Vehicle</div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <div class="hr"></div>
+
+      <!-- Officer -->
+      <section class="rankBlock">
+        <div class="rankHead">
+          <h3>Officer</h3>
+        </div>
+
+        <div class="uGrid">
+          <button class="uCard" type="button"
+                  data-img="https://i.nuuls.com/ONyBB.png"
+                  data-title="Officer — Patrol Vehicle">
+            <div class="uCardInner">
+              <img class="uImg" src="https://i.nuuls.com/ONyBB.png" alt="Officer vehicle">
+              <div class="uCaption">Officer — Patrol Vehicle</div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <div class="hr"></div>
+
+      <!-- Snr. Officer -->
+      <section class="rankBlock">
+        <div class="rankHead">
+          <h3>Snr. Officer</h3>
+        </div>
+
+        <div class="uGrid">
+          <button class="uCard" type="button"
+                  data-img="https://i.nuuls.com/Eodk_.png"
+                  data-title="Snr. Officer — Patrol Vehicle">
+            <div class="uCardInner">
+              <img class="uImg" src="https://i.nuuls.com/Eodk_.png" alt="Senior Officer vehicle">
+              <div class="uCaption">Snr. Officer — Patrol Vehicle</div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <div class="hr"></div>
+
+      <!-- Corporal -->
+      <section class="rankBlock">
+        <div class="rankHead">
+          <h3>Corporal</h3>
+        </div>
+
+        <div class="uGrid">
+          <button class="uCard" type="button"
+                  data-img="https://i.nuuls.com/nMUwW.png"
+                  data-title="Corporal — Patrol Vehicle">
+            <div class="uCardInner">
+              <img class="uImg" src="https://i.nuuls.com/nMUwW.png" alt="Corporal vehicle">
+              <div class="uCaption">Corporal — Patrol Vehicle</div>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <div class="hr"></div>
+
+      <div class="actionsRow">
+        <a class="chip" href="./">⬅️ Обратно към LSPD</a>
+        <a class="chip" href="../">🏠 Начало</a>
+      </div>
+    </div>
+  </main>
