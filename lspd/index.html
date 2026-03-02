@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>LSPD Handbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css">
+</head>
 
+<body>
+  <!-- ✅ Site-wide gate -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <div class="card page">
+    <h2>LSPD Handbook</h2>
+    <p>Наръчник за Los Santos Police Department</p>
+
+    <div class="hr"></div>
+
+    <p>Тук ще бъдат SOP, процедури, звена и обучения за LSPD.</p>
+  </div>
+</body>
+</html>
