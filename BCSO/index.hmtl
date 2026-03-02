@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TigerPlexPD — LSPD</title>
+  <title>TigerPlexPD — BCSO</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 
@@ -20,8 +20,8 @@
       <div class="brand">
         <div class="logo">TP</div>
         <div>
-          <h1>TigerPlexPD</h1>
-          <p>LSPD</p>
+          <h1>Blaine County Sheriff Office</h1>
+          <p>Наръчник за Blaine County Sheriff Office</p>
         </div>
       </div>
       <div class="links">
