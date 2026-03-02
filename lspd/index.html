@@ -2,26 +2,62 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
-  <title>LSPD Handbook</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — LSPD</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-  <!-- ✅ Site-wide gate -->
+  <!-- ✅ Site-wide gate (страница в папка → ../login.html) -->
   <script>
     if (localStorage.getItem("pd_access") !== "yes") {
       window.location.href = "../login.html";
     }
   </script>
 
-  <div class="card page">
-    <h2>LSPD Handbook</h2>
-    <p>Наръчник за Los Santos Police Department</p>
-
-    <div class="hr"></div>
-
-    <p>Тук ще бъдат SOP, процедури, звена и обучения за LSPD.</p>
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>Los Santos Police Department</h1>
+          <p>Наръчник за Los Santos Police Department</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
+      </div>
+    </div>
   </div>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>Police Handbook</h2>
+      <p>Избери секция:</p>
+
+      <ul>
+        <li><a href="uniform.html">Униформи</a></li>
+        <li><a href="cars.html">Коли</a></li>
+      </ul>
+
+      <!-- (по желание) Logout -->
+      <div style="height:12px"></div>
+      <button class="ctaPrimary" onclick="logout()" type="button">Изход</button>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    function logout(){
+      localStorage.removeItem("pd_access");
+      window.location.href = "../login.html";
+    }
+  </script>
 </body>
 </html>
