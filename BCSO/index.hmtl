@@ -39,8 +39,8 @@
       <p>Избери секция:</p>
 
       <ul>
-        <li><a href="uniform.html">Униформи</a></li>
-        <li><a href="cars.html">Коли</a></li>
+        <li><a href="unif.html">Униформи</a></li>
+        <li><a href="car.html">Коли</a></li>
       </ul>
 
       <!-- (по желание) Logout -->
