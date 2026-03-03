@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>LSPD — Impound & Лимити</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <!-- ✅ Site-wide gate (парола за целия сайт) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>⛔ LSPD — Impound времена и лимити по ситуации</h2>
+      <p>3D карти: на компютър обръщат при hover, на телефон — с натискане. Търсачката филтрира всичко.</p>
+
+      <!-- 🔎 ТЪРСАЧКА -->
+      <div class="filterBar">
+        <input id="filterInput" class="filterInput" type="search"
+               placeholder='Търси… (пример: "7 дни", "Paleto", "10-80", "Air")' autocomplete="off">
+        <button id="clearFilter" class="filterBtn" type="button">Изчисти</button>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- =======================
+           SECTION: IMPOUND
+      ======================== -->
+      <h3 style="margin:14px 0 8px;">🚗 Impound (конфискуване) — време и такса</h3>
+      <div class="note noteBig">
+        <b>Тук може да гледате за колко време може да Impound-нете автомобила на заподозрения за следните сигнали и паричната сума която може да му сложите за изваждането на автомобила.</b>
+      </div>
+
+      <div class="flipGrid">
+        <!-- helper: card template is repeated -->
+
+        <button class="flipCard" type="button" data-filter="Бягство от полиция 1 час 1500 1 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Бягство от полиция</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 1 час</span>
+                <span class="flipPill">💲 1 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">1 час</div>
+              <div class="flipMeta">Такса за изваждане: <b>1 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="10-60 сигнал 4 часа 2000 2 000$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Сигнал 10-60</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 4 часа</span>
+                <span class="flipPill">💲 2 000$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">4 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>2 000$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Обир на къща 4 часа 2500 2 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на къща</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 4 часа</span>
+                <span class="flipPill">💲 2 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">4 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>2 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Обир на магазин 4 часа 3000 3 000$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на магазин</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 4 часа</span>
+                <span class="flipPill">💲 3 000$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">4 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>3 000$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Cash Exchange 12 часа 3500 3 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Cash Exchange</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 12 часа</span>
+                <span class="flipPill">💲 3 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>3 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Laundromat 12 часа 3500 3 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Laundromat</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 12 часа</span>
+                <span class="flipPill">💲 3 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>3 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Fleeca Bank 12 часа 4500 4 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на Fleeca Bank</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 12 часа</span>
+                <span class="flipPill">💲 4 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>4 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Paleto Bank 24 часа 5500 5 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на Paleto Bank</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 24 часа</span>
+                <span class="flipPill">💲 5 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">24 часа</div>
+              <div class="flipMeta">Такса за изваждане: <b>5 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="ammo container 3 дена 6500 6 500$ impound containers">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на ammo container</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 3 дена</span>
+                <span class="flipPill">💲 6 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">3 дена</div>
+              <div class="flipMeta">Такса за изваждане: <b>6 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="bob cat bobcat 3 дена 7500 7 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на Bobcat</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 3 дена</span>
+                <span class="flipPill">💲 7 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">3 дена</div>
+              <div class="flipMeta">Такса за изваждане: <b>7 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="казино casino 7 дена 10500 10 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Обир на казино</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 7 дена</span>
+                <span class="flipPill">💲 10 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">7 дена</div>
+              <div class="flipMeta">Такса за изваждане: <b>10 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="бавен ескорт 7 дена 12500 12 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Опит за измъкване от бавен ескорт</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 7 дена</span>
+                <span class="flipPill">💲 12 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">7 дена</div>
+              <div class="flipMeta">Такса за изваждане: <b>12 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="лице под издирване докато не го хванете 1000 1 000$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Лице под издирване</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ докато не го хванете</span>
+                <span class="flipPill">💲 1 000$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">Докато не го хванете</div>
+              <div class="flipMeta">Такса за изваждане: <b>1 000$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="стрелба по полиция drive by 12 часа 8500 8 500$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Стрелба по полиция</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 12 часа (drive-by)</span>
+                <span class="flipPill">💲 8 500$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 часа</div>
+              <div class="flipMeta">Ако е било drive-by</div>
+              <div class="flipMeta">Такса за изваждане: <b>8 500$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="без регистрационен номер 7 дни 1250 1 250$ impound">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Автомобил без регистрационен номер</div>
+              <div class="flipSub">Impound + Такса</div>
+              <div class="flipQuick">
+                <span class="flipPill">⏱ 7 дни</span>
+                <span class="flipPill">💲 1 250$</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">7 дни</div>
+              <div class="flipMeta">Такса за изваждане: <b>1 250$</b></div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- =======================
+           SECTION: LIMITS
+      ======================== -->
+      <h3 style="margin:14px 0 8px;">👮 Лимит полицаи и екипи по обири/ситуации</h3>
+
+      <div class="flipGrid">
+        <button class="flipCard" type="button" data-filter="Vending Parking Meter Mugging 4 полицая 2 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Vending / Parking Meter / Mugging</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 4</span>
+                <span class="flipPill">🚓 2 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">4 полицая</div>
+              <div class="flipMeta">2 екипа</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="10-60 3 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">10-60</div>
+              <div class="flipSub">Екипи</div>
+              <div class="flipQuick">
+                <span class="flipPill">🚓 3 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">3 екипа</div>
+              <div class="flipMeta">&nbsp;</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="10-80 3 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">10-80</div>
+              <div class="flipSub">Екипи</div>
+              <div class="flipQuick">
+                <span class="flipPill">🚓 3 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">3 екипа</div>
+              <div class="flipMeta">&nbsp;</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Къща 5 полицая 3 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Къща</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 5</span>
+                <span class="flipPill">🚓 3 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">5 полицая</div>
+              <div class="flipMeta">3 екипа</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Банкомат 5 полицая 3 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Банкомат</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 5</span>
+                <span class="flipPill">🚓 3 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">5 полицая</div>
+              <div class="flipMeta">3 екипа</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Магазин 8 полицая 4 екипа">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Магазин</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 8</span>
+                <span class="flipPill">🚓 4 екипа</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">8 полицая</div>
+              <div class="flipMeta">4 екипа</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Cash Exchange 8 полицая 3 екипа Air air one 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Cash Exchange</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 8</span>
+                <span class="flipPill">🚓 3 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">8 полицая</div>
+              <div class="flipMeta">3 екипа • 1 Air-1</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Laundromat 8 полицая 3 екипа Air air one 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Laundromat</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 8</span>
+                <span class="flipPill">🚓 3 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">8 полицая</div>
+              <div class="flipMeta">3 екипа • 1 Air-1</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Fleeca Bank 8 полицая 4 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Fleeca Bank</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 8</span>
+                <span class="flipPill">🚓 4 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">8 полицая</div>
+              <div class="flipMeta">4 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="A/S клас коли 8 полицая 3 екипа Air air one 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">A/S клас коли</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 8</span>
+                <span class="flipPill">🚓 3 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">8 полицая</div>
+              <div class="flipMeta">3 екипа • 1 Air-1</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Инкасо 12 полицая 5 екипа Air air one 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Инкасо</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 12</span>
+                <span class="flipPill">🚓 5 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 полицая</div>
+              <div class="flipMeta">5 екипа • 1 Air-1</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Paleto Bank 12 полицая 5 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Paleto Bank</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 12</span>
+                <span class="flipPill">🚓 5 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 полицая</div>
+              <div class="flipMeta">5 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Art Asylum 12 полицая 5 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Art Asylum</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 12</span>
+                <span class="flipPill">🚓 5 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">12 полицая</div>
+              <div class="flipMeta">5 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Bobcat 14 полицая 5 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Bobcat</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 14</span>
+                <span class="flipPill">🚓 5 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">14 полицая</div>
+              <div class="flipMeta">5 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Maze bank 14 полицая 5 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Maze Bank</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 14</span>
+                <span class="flipPill">🚓 5 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">14 полицая</div>
+              <div class="flipMeta">5 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Главна банка 16 полицая 6 екипа 2 air one Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Главна банка</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 16</span>
+                <span class="flipPill">🚓 6 екипа</span>
+                <span class="flipPill">🚁 2 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">16 полицая</div>
+              <div class="flipMeta">6 екипа • 2 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Containers 16 полицая 7 екипа Air air one 1 Bike 1">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Containers</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 16</span>
+                <span class="flipPill">🚓 7 екипа</span>
+                <span class="flipPill">🚁 1 Air-1</span>
+                <span class="flipPill">🏍 1 Bike</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">16 полицая</div>
+              <div class="flipMeta">7 екипа • 1 Air-1 • 1 Bike</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Casino heist 18 полицая 2 air one">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Casino Heist</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 18</span>
+                <span class="flipPill">🚁 2 Air-1</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">18 полицая</div>
+              <div class="flipMeta">2 Air-1</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+
+        <button class="flipCard" type="button" data-filter="Jail Break всеки наличен полицай">
+          <div class="flipInner">
+            <div class="flipFront">
+              <div class="flipTitle">Jail Break</div>
+              <div class="flipSub">Лимит</div>
+              <div class="flipQuick">
+                <span class="flipPill">👮 всички налични</span>
+              </div>
+            </div>
+            <div class="flipBack">
+              <div class="flipBig">Всеки наличен</div>
+              <div class="flipMeta">полицай</div>
+              <div class="flipHint">Натисни/hover за връщане</div>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="actionsRow">
+        <a class="chip" href="./">⬅️ Обратно към LSPD</a>
+        <a class="chip" href="../">🏠 Начало</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ✅ Mobile: click to flip (на PC hover ще го обръща, но click пак работи)
+    document.querySelectorAll(".flipCard").forEach(card => {
+      card.addEventListener("click", () => card.classList.toggle("isFlipped"));
+    });
+
+    // 🔎 FILTER
+    const input = document.getElementById("filterInput");
+    const clearBtn = document.getElementById("clearFilter");
+    const allCards = Array.from(document.querySelectorAll(".flipCard"));
+
+    function normalize(s){
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function applyFilter(){
+      const q = normalize(input.value.trim());
+      allCards.forEach(card => {
+        const hay = normalize(card.getAttribute("data-filter") || card.textContent || "");
+        const ok = q === "" || hay.includes(q);
+        card.style.display = ok ? "" : "none";
+        if(!ok) card.classList.remove("isFlipped");
+      });
+    }
+
+    input.addEventListener("input", applyFilter);
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      applyFilter();
+      input.focus();
+    });
+
+    applyFilter();
+  </script>
+</body>
+</html>
