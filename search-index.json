@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Начало — TigerPlexPD",
+    "url": "index.html",
+    "section": "Home",
+    "tags": ["начало", "handbook", "академия", "10-кодове", "баджове"],
+    "text": "Официален наръчник за Police RP: SOP, 10-кодове, академия, баджове и новини."
+  },
+  {
+    "title": "LSPD — Униформи по рангове",
+    "url": "lspd/uniform.html",
+    "section": "LSPD",
+    "tags": ["lspd", "uniform", "униформи", "rank", "cadet", "officer"],
+    "text": "Униформи по рангове за LSPD. От Officer+ униформи по избор със сини цветове и правилни пагони. От Corporal позволени черни."
+  },
+  {
+    "title": "LSPD — Патрулни коли по рангове",
+    "url": "lspd/cars.html",
+    "section": "LSPD",
+    "tags": ["lspd", "cars", "vehicles", "patrol", "коли", "probationary", "officer"],
+    "text": "Коли по рангове за LSPD: Probationary, Officer, Snr. Officer, Corporal."
+  },
+  {
+    "title": "Handbook — Зони на града",
+    "url": "handbook/zone.html",
+    "section": "LSPD",
+    "tags": ["lspd", "zones", "зони", "карта", "automatic", "оръжие"],
+    "text": "Разделение на града по зони. В определена зона при стрелба от crime е позволено автоматично оръжие."
+  },
+  {
+    "title": "Handbook — Impound и лимити по обири",
+    "url": "handbook/limits.html",
+    "section": "Handbook",
+    "tags": ["impound", "конфискуване", "limiti", "обири", "10-60", "10-80", "casino", "paleto"],
+    "text": "Impound времена и такси за изваждане + лимити на полицаи/екипи по обири и ситуации."
+  },
+    {
+    "title": "Handbook — 5-те стъпки на арест",
+    "url": "handbook/arrest-steps.html",
+    "section": "Handbook",
+    "tags": ["handbook", "стъпки на арест", "5", "-те", "аперест", "индификация"],
+    "text": "5-те стъпки на арест"
+  },
+  {
+    "title": "Handbook — Видове комуникация",
+    "url": "handbook/communication.html",
+    "section": "Handbook",
+    "tags": ["handbook", "видове", "комуникация", "контакт по взаимно съгласие", "Основания за съмнение", "Вероятна причина"],
+    "text": "Видове комуникация"
+  }
+]
