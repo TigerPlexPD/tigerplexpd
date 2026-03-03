@@ -329,3 +329,101 @@ td.code.orange{ background: var(--c-orange); }
   color: rgba(255,255,255,.72);
   padding: 8px;
 }
+/* =========================
+   3D Flip Cards (Limits)
+========================= */
+.flipGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.flipCard{
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+  text-align: left;
+}
+
+.flipInner{
+  position: relative;
+  width: 100%;
+  min-height: 160px;
+  border-radius: 16px;
+  transform-style: preserve-3d;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+  box-shadow: 0 10px 28px rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.10);
+  overflow: hidden;
+}
+
+.flipCard:hover .flipInner{
+  box-shadow: 0 14px 36px rgba(0,0,0,.28);
+}
+
+.flipCard.isFlipped .flipInner{
+  transform: rotateY(180deg);
+}
+
+.flipFront, .flipBack{
+  position: absolute;
+  inset: 0;
+  padding: 14px 14px 12px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255,255,255,.03);
+}
+
+.flipBack{
+  transform: rotateY(180deg);
+  background: rgba(255,255,255,.05);
+}
+
+.flipTitle{
+  font-weight: 900;
+  letter-spacing: .2px;
+  font-size: 1.02rem;
+  line-height: 1.2;
+}
+
+.flipSub{
+  opacity: .85;
+  font-weight: 600;
+}
+
+.flipBig{
+  font-weight: 900;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.flipSmall{
+  font-size: .95rem;
+  opacity: .9;
+  font-weight: 700;
+}
+
+.flipMeta{
+  opacity: .92;
+  font-weight: 650;
+}
+
+/* Notes helpers (ако не ги имаш вече) */
+.noteBig{
+  margin: 12px 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.actionsRow{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
