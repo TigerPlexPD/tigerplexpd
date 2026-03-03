@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PD Правила: Impound & Лимити</title>
+
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --glow:rgba(120,160,255,.22);
+      --shadow:0 30px 80px rgba(0,0,0,.55);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(110,170,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,140,220,.12), transparent 60%),
+        radial-gradient(900px 700px at 40% 90%, rgba(110,255,180,.10), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:26px 18px 60px}
+    header{display:flex;gap:14px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+    h1{margin:0;font-size:clamp(22px,3vw,34px);letter-spacing:.2px}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45;max-width:80ch}
+    .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
+    .input{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 12px;border:1px solid var(--stroke);
+      border-radius:12px;background:rgba(255,255,255,.04);
+      backdrop-filter:blur(10px);
+      min-width:min(520px,90vw);
+      box-shadow:0 12px 28px rgba(0,0,0,.25);
+    }
+    .input input{
+      width:100%;background:transparent;border:0;outline:none;
+      color:var(--text);font-size:14px;
+    }
+    .pill{
+      font-size:12px;color:var(--muted);
+      border:1px solid var(--stroke);
+      border-radius:999px;padding:6px 10px;
+      background:rgba(255,255,255,.03);
+      user-select:none;white-space:nowrap;
+    }
+
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
+    @media (min-width:980px){.grid{grid-template-columns:1fr 1fr}}
+
+    .card3d{
+      position:relative;border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transform-style:preserve-3d;
+      will-change:transform;
+    }
+    .card3d::before{
+      content:"";position:absolute;inset:-2px;pointer-events:none;
+      background:
+        radial-gradient(600px 250px at var(--mx,50%) var(--my,40%), var(--glow), transparent 55%),
+        radial-gradient(520px 240px at calc(var(--mx,50%) - 30%) calc(var(--my,40%) + 25%), rgba(255,255,255,.08), transparent 60%);
+      opacity:.95;transform:translateZ(1px);
+    }
+    .cardHead{
+      padding:16px 16px 12px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+      transform:translateZ(22px);
+      position:relative;
+    }
+    .cardHead h2{margin:0;font-size:16px;letter-spacing:.2px}
+    .meta{color:var(--muted);font-size:12px;text-align:right;line-height:1.35}
+    .tag{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 8px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      font-size:12px;color:rgba(255,255,255,.85);
+      white-space:nowrap;
+    }
+
+    .tableWrap{padding:0 10px 12px;transform:translateZ(18px);position:relative}
+    table{
+      width:100%;
+      border-collapse:separate;border-spacing:0;
+      border-radius:14px;overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.12);
+      backdrop-filter:blur(8px);
+    }
+    thead th{
+      font-size:12px;text-align:left;padding:10px 10px;
+      color:rgba(255,255,255,.75);
+      background:rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      position:sticky;top:0;z-index:1;
+    }
+    tbody td{
+      padding:10px 10px;font-size:13px;vertical-align:top;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    tbody tr:last-child td{border-bottom:0}
+    .muted{color:var(--muted)}
+    .empty{padding:14px 10px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Site-wide gate (парола за целия сайт) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "./login.html";
+    }
+  </script>
+
+  <main class="wrap">
+    <header>
+      <div>
+        <h1>PD Правила (3D): Impound & Лимити</h1>
+        <p class="sub">
+          Търси по ключова дума (пример: <span class="pill">10-60</span>, <span class="pill">fleeca</span>,
+          <span class="pill">casino</span>, <span class="pill">air one</span>, <span class="pill">bike</span>).
+        </p>
+      </div>
+
+      <div class="controls">
+        <div class="input" role="search" aria-label="Търсене">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" opacity=".9"/>
+            <path d="M16.3 16.3 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+          </svg>
+          <input id="q" type="text" placeholder="Търси..." autocomplete="off">
+          <span id="count" class="pill">0 резултата</span>
+        </div>
+        <span class="pill">Няма бутони</span>
+      </div>
+    </header>
+
+    <section class="grid">
+      <!-- Impound -->
+      <article class="card3d" data-tilt>
+        <div class="cardHead">
+          <div>
+            <h2>Impound времена + такса</h2>
+            <div class="muted" style="font-size:12px;margin-top:6px;">Колко време може да Impound-нете + сума за освобождаване</div>
+          </div>
+          <div class="meta">
+            <div class="tag">Impound</div>
+            <div style="margin-top:6px;">време · $</div>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:52%">Сигнал / Ситуация</th>
+                <th style="width:24%">Impound</th>
+                <th style="width:24%">Такса ($)</th>
+              </tr>
+            </thead>
+            <tbody id="impoundBody"></tbody>
+          </table>
+          <div id="impoundEmpty" class="empty" style="display:none;">Няма съвпадения в Impound правилата.</div>
+        </div>
+      </article>
+
+      <!-- Limits -->
+      <article class="card3d" data-tilt>
+        <div class="cardHead">
+          <div>
+            <h2>Лимит полиция по обири / ситуации</h2>
+            <div class="muted" style="font-size:12px;margin-top:6px;">Макс. полицаи, екипи, air one, bike</div>
+          </div>
+          <div class="meta">
+            <div class="tag">Лимити</div>
+            <div style="margin-top:6px;">cops · teams · спец</div>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:48%">Ситуация</th>
+                <th style="width:16%">Полицаи</th>
+                <th style="width:16%">Екипи</th>
+                <th style="width:20%">Спец</th>
+              </tr>
+            </thead>
+            <tbody id="limitsBody"></tbody>
+          </table>
+          <div id="limitsEmpty" class="empty" style="display:none;">Няма съвпадения в лимитите.</div>
+        </div>
+      </article>
+    </section>
+
+    <p class="muted" style="margin-top:14px;font-size:12px;line-height:1.45;">
+      Заб.: “Докато не го хванете” е без фиксирана продължителност. “3 дена / 7 дена / 7 дни” са оставени както са дадени.
+    </p>
+  </main>
+
+  <script>
+    // -----------------------------
+    // Data
+    // -----------------------------
+    const IMPOUND_RULES = [
+      { label: "Бягство от полиция", duration: "1 час", fee: 1500 },
+      { label: "Сигнал за 10-60", duration: "4 часа", fee: 2000 },
+      { label: "Обир на къща", duration: "4 часа", fee: 2500 },
+      { label: "Обир на магазин", duration: "4 часа", fee: 3000 },
+      { label: "Обир на cash exchange", duration: "12 часа", fee: 3500 },
+      { label: "Обир на laundromat", duration: "12 часа", fee: 3500 },
+      { label: "Обир на fleeca bank", duration: "12 часа", fee: 4500 },
+      { label: "Обир на paleto bank", duration: "24 часа", fee: 5500 },
+      { label: "Обир на ammo container", duration: "3 дена", fee: 6500 },
+      { label: "Обир на bob cat", duration: "3 дена", fee: 7500 },
+      { label: "Обир на казино", duration: "7 дена", fee: 10500 },
+      { label: "Опит за измъкване от бавен ескорт", duration: "7 дена", fee: 12500 },
+      { label: "Лице под издирване", duration: "докато не го хванете", fee: 1000 },
+      { label: "Стрелба по полиция (ако е било на drive by)", duration: "12 часа", fee: 8500 },
+      { label: "Автомобил без регистрационен номер", duration: "7 дни", fee: 1250 },
+    ];
+
+    const LIMITS = [
+      { label: "Обир на Vending, Parking Meter, Mugging", cops: "4", teams: "2", special: "" },
+      { label: "10-60", cops: "—", teams: "3", special: "" },
+      { label: "10-80", cops: "—", teams: "3", special: "" },
+      { label: "Къща", cops: "5", teams: "3", special: "" },
+      { label: "Банкомат", cops: "5", teams: "3", special: "" },
+      { label: "Магазин", cops: "8", teams: "4", special: "" },
+      { label: "Cash Exchange", cops: "8", teams: "3", special: "1 air one" },
+      { label: "Laundromat", cops: "8", teams: "3", special: "1 air one" },
+      { label: "Fleeca Bank", cops: "8", teams: "4", special: "1 air one · 1 bike" },
+      { label: "А/S клас коли", cops: "8", teams: "3", special: "1 air one" },
+      { label: "Инкасо", cops: "12", teams: "5", special: "1 air one" },
+      { label: "Paleto Bank", cops: "12", teams: "5", special: "1 air one · 1 bike" },
+      { label: "Art Asylum", cops: "12", teams: "5", special: "1 air one · 1 bike" },
+      { label: "Bobcat", cops: "14", teams: "5", special: "1 air one · 1 bike" },
+      { label: "Maze bank", cops: "14", teams: "5", special: "1 air one · 1 bike" },
+      { label: "Главна банка", cops: "16", teams: "6", special: "2 air one · 1 bike" },
+      { label: "Containers", cops: "16", teams: "7", special: "1 air one · 1 bike" },
+      { label: "Casino heist", cops: "18", teams: "—", special: "2 air one" },
+      { label: "Jail Break", cops: "всеки наличен", teams: "—", special: "" },
+    ];
+
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    const fmtMoney = (n) => {
+      try { return new Intl.NumberFormat("en-US").format(Number(n)); }
+      catch { return String(n); }
+    };
+
+    const normalize = (s) =>
+      (s ?? "")
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+
+    // -----------------------------
+    // Render
+    // -----------------------------
+    const impoundBody = document.getElementById("impoundBody");
+    const limitsBody = document.getElementById("limitsBody");
+    const q = document.getElementById("q");
+    const count = document.getElementById("count");
+    const impoundEmpty = document.getElementById("impoundEmpty");
+    const limitsEmpty = document.getElementById("limitsEmpty");
+
+    function render(filterText=""){
+      const f = normalize(filterText);
+
+      const impFiltered = IMPOUND_RULES.filter(r => {
+        const hay = normalize(`${r.label} ${r.duration} ${r.fee}`);
+        return !f || hay.includes(f);
+      });
+
+      const limFiltered = LIMITS.filter(r => {
+        const hay = normalize(`${r.label} ${r.cops} ${r.teams} ${r.special}`);
+        return !f || hay.includes(f);
+      });
+
+      impoundBody.innerHTML = impFiltered.map(r => `
+        <tr>
+          <td><strong>${r.label}</strong></td>
+          <td>${r.duration}</td>
+          <td>$${fmtMoney(r.fee)}</td>
+        </tr>
+      `).join("");
+
+      limitsBody.innerHTML = limFiltered.map(r => `
+        <tr>
+          <td><strong>${r.label}</strong></td>
+          <td>${r.cops || "<span class='muted'>—</span>"}</td>
+          <td>${r.teams || "<span class='muted'>—</span>"}</td>
+          <td>${r.special ? r.special : "<span class='muted'>—</span>"}</td>
+        </tr>
+      `).join("");
+
+      impoundEmpty.style.display = impFiltered.length ? "none" : "block";
+      limitsEmpty.style.display = limFiltered.length ? "none" : "block";
+      count.textContent = `${impFiltered.length + limFiltered.length} резултата`;
+    }
+
+    q.addEventListener("input", (e) => render(e.target.value));
+    render("");
+
+    // -----------------------------
+    // 3D Tilt
+    // -----------------------------
+    const tiltCards = document.querySelectorAll("[data-tilt]");
+
+    function setTilt(el, x, y){
+      const rotY = (x - 0.5) * 10;   // -5..+5
+      const rotX = (0.5 - y) * 10;   // -5..+5
+      el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      el.style.setProperty("--mx", `${x * 100}%`);
+      el.style.setProperty("--my", `${y * 100}%`);
+    }
+
+    tiltCards.forEach(card => {
+      let raf = null;
+
+      card.addEventListener("mousemove", (ev) => {
+        const r = card.getBoundingClientRect();
+        const x = (ev.clientX - r.left) / r.width;
+        const y = (ev.clientY - r.top) / r.height;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => setTilt(card, x, y));
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+        card.style.setProperty("--mx", "50%");
+        card.style.setProperty("--my", "40%");
+      });
+    });
+  </script>
+</body>
+</html>
