@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TigerPlexPD — Академия (Вход)</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(255,255,255,.10);
+      --shadow1: 0 22px 55px rgba(0,0,0,.45);
+      --shadow2: 0 12px 26px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.28);
+      --radius: 18px;
+      --accentA: rgba(79,140,255,.95);
+      --accentB: rgba(124,58,237,.90);
+    }
+
+    .login3d{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2), var(--inset);
+      padding: 18px;
+      position: relative;
+      overflow:hidden;
+      max-width: 520px;
+      margin: 24px auto 0;
+    }
+    .login3d::before{
+      content:"";
+      position:absolute;
+      top:-120px;left:-120px;
+      width:260px;height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 60%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+
+    .login3d h2{
+      margin: 0 0 8px;
+      text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .login3d p{ margin: 0 0 14px; opacity: .85; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .field{
+      flex:1;
+      min-width: 220px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: #fff;
+      outline: none;
+      box-shadow: var(--inset);
+    }
+
+    .btn3d{
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(79,140,255,.28), rgba(124,58,237,.18));
+      color: rgba(255,255,255,.95);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: var(--shadow2), var(--inset);
+    }
+    .btn3d:active{ transform: translateY(1px); }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: .75;
+    }
+
+    .err{
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255,140,140,.95);
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Първо: проверка за основния сайт логин -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="index.html">Начало</a>
+        <a class="chip" href="handbook/index.html">Handbook</a>
+        <a class="chip" href="codes.html">10-кодове</a>
+        <a class="chip" href="badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="login3d">
+      <h2>Академия — Вход</h2>
+      <p>Тази страница има <b>отделна парола</b> от паролата на целия сайт.</p>
+
+      <div class="row">
+        <input id="pw" class="field" type="password" placeholder="Въведи парола за Академия" autocomplete="current-password">
+        <button class="btn3d" type="button" onclick="academyLogin()">Влез</button>
+      </div>
+
+      <div id="err" class="err">Грешна парола. Опитай пак.</div>
+      <div class="hint">Админ: сменяш паролата вътре в кода (ACADEMY_PASSWORD).</div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ✅ Смени това на твоята академична парола:
+    const ACADEMY_PASSWORD = "academy123";
+
+    function academyLogin(){
+      const v = document.getElementById("pw").value || "";
+      const err = document.getElementById("err");
+
+      if (v === ACADEMY_PASSWORD) {
+        localStorage.setItem("academy_access", "yes");
+        window.location.href = "academy.html";
+      } else {
+        err.style.display = "block";
+      }
+    }
+
+    // Enter = submit
+    document.getElementById("pw").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") academyLogin();
+    });
+  </script>
+</body>
+</html>
