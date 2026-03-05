@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>TigerPlexPD — Начало</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — Handbook</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-  <!-- ✅ Site-wide gate -->
+  <!-- ✅ Site-wide gate (страница в папка → ../login.html) -->
   <script>
     if (localStorage.getItem("pd_access") !== "yes") {
-      window.location.href = "login.html";
+      window.location.href = "../login.html";
     }
   </script>
 
@@ -25,41 +25,39 @@
         </div>
       </div>
       <div class="links">
-        <a class="chip" href="handbook/">Handbook</a>
-        <a class="chip" href="academy.html">Академия</a>
-        <a class="chip" href="codes.html">10-кодове</a>
-        <a class="chip" href="lspd/">LSPD</a>
-        <a class="chip" href="badges.html">Баджове</a>
-        <a class="btn" href="https://discord.gg/CHANGE-ME" target="_blank" rel="noopener">Discord</a>
-        <a class="chip" href="search.html">🔎 Търсачка</a>
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
       </div>
     </div>
   </div>
 
   <main class="wrap">
     <div class="card page">
-      <h2>Добре дошли в TigerPlexPD</h2>
-      <p>
-        Тук е официалният наръчник за Police RP: процедури (SOP),
-        10-кодове и страница с баджове (таблица).
-      </p>
+      <h2>Police Handbook</h2>
+      <p>Избери секция:</p>
 
-      <div class="hr"></div>
+      <ul>
+        <li><a href="rules.html">📘 Общи правила</a></li>
+        <li><a href="weapons.html">🔫 Оръжия на полиция</a></li>
+        <li><a href="radio.html">📡 Радиокомуникация</a></li>
+        <li><a href="danger.html">🚦 Степени на опасност</a></li>
+        <li><a href="freedom.html">🕵️‍♂️ Свобода и дискретност</a></li>
+        <li><a href="miranda.html">🗣️ Миранда</a></li>
+        <li><a href="communication.html">🗣️ Видове комуникация</a></li>
+        <li><a href="teams.html">🚓 Роли на екипите в готките</a></li>
+        <li><a href="goldrules.html">⭐ Златни правила на полицая</a></li>
+        <li><a href="pit.html">🚗 PIT маневра</a></li>
+        <li><a href="evidence.html">🧾 Видове доказателства</a></li>
+        <li><a href="arrest-steps.html">🧷 5-те стъпки на арест</a></li>
+        <li><a href="ranks.html">🎖️ Рангове и структура</a></li>
+        <li><a href="zone.html">🗺️ Зони</a></li>
+        <li><a href="limits.html">🚓 Impound & Лимити</a></li>
+        
+      </ul>
 
-      <div class="note">
-        <b>Disclaimer:</b> Този сайт е за Roleplay общност и няма връзка с реални полицейски институции.
-      </div>
-
-      <!-- 📰 НОВИНИ -->
-      <div class="hr"></div>
-
-      <h3 style="margin:14px 0 8px;">📰 Новини</h3>
-
-      <div class="news3d" id="newsBox">
-        <div class="newsLoading">Зареждане на новини…</div>
-      </div>
-
-      <!-- (по желание) logout бутон -->
+      <!-- (по желание) Logout -->
       <div style="height:12px"></div>
       <button class="ctaPrimary" onclick="logout()" type="button">Изход</button>
     </div>
@@ -72,49 +70,8 @@
 
     function logout(){
       localStorage.removeItem("pd_access");
-      window.location.href = "login.html";
+      window.location.href = "../login.html";
     }
-  </script>
-
-  <!-- ✅ News loader (4) -->
-  <script>
-    (async function loadNews(){
-      const box = document.getElementById("newsBox");
-      try{
-        const res = await fetch("news.json?ts=" + Date.now());
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        const items = await res.json();
-
-        if(!Array.isArray(items) || items.length === 0){
-          box.innerHTML = '<div class="newsEmpty">Няма новини в момента.</div>';
-          return;
-        }
-
-        // сортиране по дата (най-новите отгоре)
-        items.sort((a,b)=> (b.date||"").localeCompare(a.date||""));
-
-        box.innerHTML = items.slice(0,6).map(n => `
-          <div class="newsItem">
-            <div class="newsTop">
-              <div class="newsTitle">${escapeHtml(n.title || "Без заглавие")}</div>
-              <div class="newsMeta">
-                <span class="newsTag">${escapeHtml(n.tag || "Info")}</span>
-                <span>${escapeHtml(n.date || "")}</span>
-              </div>
-            </div>
-            <div class="newsText">${escapeHtml(n.text || "")}</div>
-          </div>
-        `).join("");
-      }catch(e){
-        box.innerHTML = '<div class="newsEmpty">Грешка при зареждане на новини.</div>';
-      }
-
-      function escapeHtml(s){
-        return String(s).replace(/[&<>"']/g, m => ({
-          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-        }[m]));
-      }
-    })();
   </script>
 </body>
 </html>
