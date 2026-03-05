@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — 5-те стъпки на арест</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* ===== 3D Arrest Steps Page ===== */
+    :root{
+      --line: rgba(255,255,255,.14);
+      --glass: rgba(255,255,255,.10);
+      --shadow1: 0 22px 55px rgba(0,0,0,.45);
+      --shadow2: 0 12px 26px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.28);
+      --radius: 18px;
+
+      --accentA: rgba(79,140,255,.95);
+      --accentB: rgba(124,58,237,.90);
+
+      --text: rgba(255,255,255,.90);
+      --textSoft: rgba(255,255,255,.74);
+    }
+
+    .arrest{
+      line-height: 1.65;
+      letter-spacing: .12px;
+      color: var(--text);
+    }
+
+    .arrest h2{
+      text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .arrest .small{
+      color: var(--textSoft);
+      font-size: 13px;
+      text-shadow: 0 1px 0 rgba(0,0,0,.25);
+    }
+
+    /* 3D steps grid */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 1200px){
+      .steps{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 650px){
+      .steps{ grid-template-columns: 1fr; }
+    }
+
+    /* 3D card */
+    .step{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2), var(--inset);
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .12s ease, filter .12s ease;
+      min-height: 110px;
+    }
+    .step:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+    .step::before{
+      content:"";
+      position:absolute;
+      top:-120px;left:-120px;
+      width:260px;height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 60%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+
+    .num{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 950;
+      color: rgba(255,255,255,.95);
+      text-shadow: 0 2px 0 rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(79,140,255,.28), rgba(124,58,237,.18));
+      box-shadow: var(--shadow2), var(--inset);
+      margin-bottom: 10px;
+    }
+
+    .title{
+      font-weight: 950;
+      letter-spacing: .2px;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+      color: rgba(255,255,255,.94);
+    }
+
+    /* Optional mini tip line */
+    .tip{
+      margin-top: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.75);
+      text-shadow: 0 1px 0 rgba(0,0,0,.25);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Login gate (страница е в /handbook) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page arrest">
+      <h2>5-ТЕ СТЪПКИ НА АРЕСТ</h2>
+      <p class="small">
+        Бърз чеклист за правилна последователност при арест (RP).
+      </p>
+
+      <div class="hr"></div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div class="title">Слагате белезници</div>
+          <div class="tip">Преди това: ясни команди и предупреждение.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div class="title">Миранда предупреждение</div>
+          <div class="tip">Прочита се при арест / ако предстои арест.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div class="title">Лична карта проверка</div>
+          <div class="tip">Идентификация + проверка в системите (MDT/MDW).</div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div class="title">Претърсване</div>
+          <div class="tip">Изземване на опасни/нелегални предмети според протокол.</div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div class="title">Слагате в патрулката и закопчаване на колана</div>
+          <div class="tip">Контрол на ситуацията + безопасност при транспортиране.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
