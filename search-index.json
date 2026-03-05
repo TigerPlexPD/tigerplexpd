@@ -132,6 +132,13 @@
     "tags": [ "Бадж", "Служебен номер"],
     "text": "Баджове"
   },
+       {
+    "title": "Униформи на BCSO",
+    "url": "BCSO/unif.html",
+    "section": "BCSO",
+    "tags": [ "униформи", "BCSO"],
+    "text": "Униформи BCSO"
+  },
         {
     "title": "10-кодовота система",
     "url": "codes.html",
