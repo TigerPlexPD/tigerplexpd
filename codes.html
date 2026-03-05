@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TigerPlexPD — 10-кодове</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root{
+      --c-green:#6aa84f; --c-yellow:#ffd966; --c-red:#ff0000; --c-orange:#f6b26b;
+      --cell-gray:#5f5f5f;
+
+      /* 3D / depth */
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.10);
+      --line: rgba(255,255,255,.14);
+      --shadow1: 0 18px 45px rgba(0,0,0,.45);
+      --shadow2: 0 10px 22px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.25);
+      --radius: 16px;
+    }
+
+    .codes-wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr .9fr;
+      gap:14px;
+    }
+
+    /* Card-like table wrapper */
+    .codes-table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0 10px;          /* space between rows -> card rows */
+      background: transparent;
+    }
+
+    .codes-table tbody tr{
+      transform: translateZ(0);
+      transition: transform .12s ease, filter .12s ease;
+    }
+
+    .codes-table tbody tr:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+    }
+
+    /* Row cells become a single 3D "pill" */
+    .codes-table td{
+      padding:12px 12px;
+      font-size:14px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, var(--glass2), rgba(255,255,255,.03));
+      box-shadow: var(--shadow2);
+    }
+
+    /* Left code cell */
+    td.code{
+      width:105px;
+      font-weight:900;
+      color:#0b0f1a;
+      text-align:center;
+      white-space:nowrap;
+
+      border-right:0;
+      border-top-left-radius: var(--radius);
+      border-bottom-left-radius: var(--radius);
+
+      /* 3D look */
+      box-shadow: var(--shadow2), var(--inset);
+      position: relative;
+      overflow:hidden;
+    }
+
+    /* Add subtle highlight stripe */
+    td.code::before{
+      content:"";
+      position:absolute;
+      inset:-40% -40% auto -40%;
+      height:80%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 60%);
+      transform: rotate(-8deg);
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    /* Right description cell */
+    td.desc{
+      background: linear-gradient(180deg, rgba(130,130,130,.55), rgba(70,70,70,.55));
+      color:#fff;
+      font-weight:700;
+
+      border-left:0;
+      border-top-right-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+
+      box-shadow: var(--shadow2), var(--inset);
+      position: relative;
+    }
+
+    /* Text readability on dark */
+    td.desc{
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+    }
+
+    /* Color variants for code cell with gradient + glow */
+    td.code.green{
+      background: linear-gradient(180deg, #8bdc6a, var(--c-green));
+      box-shadow: 0 14px 28px rgba(106,168,79,.25), var(--inset);
+    }
+    td.code.yellow{
+      background: linear-gradient(180deg, #fff2b3, var(--c-yellow));
+      box-shadow: 0 14px 28px rgba(255,217,102,.25), var(--inset);
+    }
+    td.code.orange{
+      background: linear-gradient(180deg, #ffd3a8, var(--c-orange));
+      box-shadow: 0 14px 28px rgba(246,178,107,.25), var(--inset);
+    }
+    td.code.red{
+      background: linear-gradient(180deg, #ff8a8a, var(--c-red));
+      box-shadow: 0 14px 28px rgba(255,0,0,.20), var(--inset);
+      color:#140606;
+    }
+
+    /* Optional: small badge on hover */
+    .legend{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 0 0 12px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      box-shadow: var(--shadow2);
+      font-size:12px;
+      color: rgba(255,255,255,.86);
+    }
+    .dot{width:10px;height:10px;border-radius:99px}
+    .dot.g{background:var(--c-green)}
+    .dot.y{background:var(--c-yellow)}
+    .dot.o{background:var(--c-orange)}
+    .dot.r{background:var(--c-red)}
+
+    @media (max-width: 900px){
+      .codes-wrap{grid-template-columns:1fr}
+      td.code{width:120px}
+      .codes-table{border-spacing:0 12px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Site-wide gate -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="index.html">Начало</a>
+        <a class="chip" href="handbook/">Handbook</a>
+        <a class="chip" href="codes.html">10-кодове</a>
+        <a class="chip" href="badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page">
+      <h2>10-кодова система</h2>
+
+      <div class="legend">
+        <span class="pill"><span class="dot g"></span> Нормално / Информация</span>
+        <span class="pill"><span class="dot y"></span> Повишено внимание</span>
+        <span class="pill"><span class="dot o"></span> Висок риск</span>
+        <span class="pill"><span class="dot r"></span> Критично / Спешно</span>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="codes-wrap">
+        <!-- ЛЯВА КОЛОНА -->
+        <table class="codes-table">
+          <tbody>
+            <tr><td class="code green">10-2</td><td class="desc">Позитивно</td></tr>
+            <tr><td class="code green">10-3</td><td class="desc">Прекрати радиокомуникация</td></tr>
+            <tr><td class="code green">10-4</td><td class="desc">Разбрано</td></tr>
+            <tr><td class="code green">10-6</td><td class="desc">Зает</td></tr>
+            <tr><td class="code green">10-7</td><td class="desc">Излизам в почивка</td></tr>
+            <tr><td class="code green">10-8</td><td class="desc">Връщане от почивка</td></tr>
+            <tr><td class="code green">10-9</td><td class="desc">Повтори</td></tr>
+            <tr><td class="code red">10-13</td><td class="desc">Паднал полицай</td></tr>
+            <tr><td class="code red">10-14</td><td class="desc">Паднало медицинско лице</td></tr>
+            <tr><td class="code green">10-19</td><td class="desc">Насочвам се към</td></tr>
+            <tr><td class="code green">10-20</td><td class="desc">Местоположение / Локация</td></tr>
+            <tr><td class="code green">10-23</td><td class="desc">Пристигнал на място</td></tr>
+            <tr><td class="code green">10-25</td><td class="desc">Докладване на живо</td></tr>
+            <tr><td class="code green">10-30</td><td class="desc">Ненужно използване на радио!</td></tr>
+            <tr><td class="code yellow">10-60</td><td class="desc">Сигнал свързан с наркотици</td></tr>
+            <tr><td class="code yellow">10-32</td><td class="desc">Въоръжен цивилен</td></tr>
+            <tr><td class="code yellow">10-35</td><td class="desc">Кражба на МПС</td></tr>
+            <tr><td class="code yellow">10-35 B</td><td class="desc">Кражба на МПС с тракер</td></tr>
+            <tr><td class="code red">10-40</td><td class="desc">Бягство от затвора!</td></tr>
+            <tr><td class="code green">10-38</td><td class="desc">Traffic Stop</td></tr>
+            <tr><td class="code green">10-41</td><td class="desc">Влизам на смяна</td></tr>
+            <tr><td class="code green">10-42</td><td class="desc">Излизам от смяна</td></tr>
+            <tr><td class="code yellow">10-47</td><td class="desc">Ранен цивилен!</td></tr>
+          </tbody>
+        </table>
+
+        <!-- СРЕДНА КОЛОНА -->
+        <table class="codes-table">
+          <tbody>
+            <tr><td class="code green">10-50</td><td class="desc">ПТП</td></tr>
+            <tr><td class="code green">10-52</td><td class="desc">Нужен е медицински екип</td></tr>
+            <tr><td class="code green">10-59</td><td class="desc">Ескорт / Конвой</td></tr>
+            <tr><td class="code yellow">10-71 A</td><td class="desc">Стрелба</td></tr>
+            <tr><td class="code yellow">10-71 B</td><td class="desc">Стрелба от МПС!</td></tr>
+            <tr><td class="code green">10-74</td><td class="desc">Негативно</td></tr>
+            <tr><td class="code green">10-97</td><td class="desc">Radio Check</td></tr>
+            <tr><td class="code yellow">10-77</td><td class="desc">Нужда от подкрепление</td></tr>
+            <tr><td class="code red">10-78</td><td class="desc">Спешна нужда от подкрепление</td></tr>
+            <tr><td class="code green">10-80</td><td class="desc">Преследване в процес</td></tr>
+            <tr><td class="code red">10-88</td><td class="desc">Експлозия!</td></tr>
+
+            <tr><td class="code green">10-90</td><td class="desc">Обир в процес</td></tr>
+            <tr><td class="code green">10-90 H</td><td class="desc">Обир на имот</td></tr>
+
+            <tr><td class="code yellow">10-90 A</td><td class="desc">Обир на банкомат</td></tr>
+            <tr><td class="code yellow">10-90 S</td><td class="desc">Обир на магазин</td></tr>
+
+            <tr><td class="code orange">10-90 CE</td><td class="desc">Обир на Чейндж бюро</td></tr>
+            <tr><td class="code orange">10-90 C</td><td class="desc">Обир на Контейнери</td></tr>
+
+            <tr><td class="code red">10-90 CS</td><td class="desc">Обир на Казино</td></tr>
+            <tr><td class="code red">10-90 RB</td><td class="desc">Обир на Палето Банка</td></tr>
+            <tr><td class="code red">10-90 PB</td><td class="desc">Обир на Paleto Банка</td></tr>
+
+            <tr><td class="code yellow">10-90 M</td><td class="desc">Обир на Maze Bank</td></tr>
+
+            <tr><td class="code green">10-91</td><td class="desc">Ескорт на арестуван / Задържан</td></tr>
+            <tr><td class="code green">10-95</td><td class="desc">Арестувано / Задържано лице</td></tr>
+            <tr><td class="code yellow">10-99</td><td class="desc">Издирва се - МПС / Човек</td></tr>
+          </tbody>
+        </table>
+
+        <!-- ДЯСНА КОЛОНА -->
+        <table class="codes-table">
+          <tbody>
+            <tr><td class="code green">Код-1</td><td class="desc">Без никакъв сигнал</td></tr>
+            <tr><td class="code yellow">Код-2</td><td class="desc">Само светлинен сигнал</td></tr>
+            <tr><td class="code red">Код-3</td><td class="desc">Светлинен и звуков сигнал</td></tr>
+            <tr><td class="code green">Код-4</td><td class="desc">Всичко е чисто</td></tr>
+            <tr><td class="code red">Код-5</td><td class="desc">Високорисково спиране на МПС (Felony Stop)</td></tr>
+            <tr><td class="code green">Код-6</td><td class="desc">Оглед на района</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

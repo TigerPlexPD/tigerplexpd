@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerPlexPD — Степени на опасност</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* ===== 3D Danger Levels ===== */
+    :root{
+      --line: rgba(255,255,255,.14);
+      --shadow1: 0 22px 55px rgba(0,0,0,.45);
+      --shadow2: 0 12px 26px rgba(0,0,0,.35);
+      --inset: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.28);
+      --radius: 18px;
+
+      --greenA:#6aa84f; --greenB:#93c47d;
+      --yellowA:#f1c232; --yellowB:#ffd966;
+      --redA:#cc0000; --redB:#ff4d4d;
+    }
+
+    .danger{
+      line-height:1.65;
+      letter-spacing:.12px;
+      color: rgba(255,255,255,.9);
+    }
+
+    .danger h2{
+      text-shadow: 0 2px 0 rgba(0,0,0,.35),
+                   0 12px 30px rgba(0,0,0,.35);
+    }
+
+    /* Section card */
+    .level{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow2), var(--inset);
+      padding:18px;
+      margin-top:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .level::before{
+      content:"";
+      position:absolute;
+      top:-120px; left:-120px;
+      width:260px; height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 60%);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+
+    /* Header */
+    .level h3{
+      margin:0 0 10px;
+      font-size:17px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-shadow: 0 2px 0 rgba(0,0,0,.35);
+    }
+
+    .badge{
+      padding:6px 14px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.3px;
+      color:#0b0f1a;
+      box-shadow: var(--shadow2), var(--inset);
+      border:1px solid rgba(255,255,255,.25);
+    }
+
+    /* Individual colors */
+    .green{
+      background: linear-gradient(135deg, var(--greenA), var(--greenB));
+    }
+    .yellow{
+      background: linear-gradient(135deg, var(--yellowA), var(--yellowB));
+    }
+    .red{
+      background: linear-gradient(135deg, var(--redA), var(--redB));
+      color:#fff;
+    }
+
+    .level p{
+      margin:0;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+    }
+
+    /* subtle lift */
+    .level{
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .level:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Login gate (страницата е в /handbook) -->
+  <script>
+    if (localStorage.getItem("pd_access") !== "yes") {
+      window.location.href = "../login.html";
+    }
+  </script>
+
+  <div class="topbar">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">TP</div>
+        <div>
+          <h1>TigerPlexPD</h1>
+          <p>Police RP Handbook</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="chip" href="../index.html">Начало</a>
+        <a class="chip" href="index.html">Handbook</a>
+        <a class="chip" href="../codes.html">10-кодове</a>
+        <a class="chip" href="../badges.html">Баджове</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="card page danger">
+      <h2>СТЕПЕНИ НА ОПАСНОСТ</h2>
+      <p class="small">
+        Оценката на заплахата определя начина на действие и използваната сила от страна на полицията.
+      </p>
+
+      <div class="hr"></div>
+
+      <!-- GREEN -->
+      <div class="level">
+        <h3>
+          <span class="badge green">КОД ЗЕЛЕНО</span>
+        </h3>
+        <p>
+          Това е човек или група хора, попаднали или участващи в активна ситуация,
+          но <b>не представляват потенциална опасност</b> за себе си или за околните.
+          Такава ситуация <b>НЕ изисква</b> намесата на летална сила или нещо по-сериозно
+          от просто <b>вербален разговор</b>.
+        </p>
+      </div>
+
+      <!-- YELLOW -->
+      <div class="level">
+        <h3>
+          <span class="badge yellow">КОД ЖЪЛТО</span>
+        </h3>
+        <p>
+          Това е ситуация, в която човекът представлява <b>потенциална опасност</b>
+          за себе си и/или околните. Това са ситуации, при които може да се очакват
+          опити за <b>физическа разправа</b> с нож, юмруци, бухалки и други предмети.
+          Употребата на <b>нелетални методи</b> от страна на полицията е
+          <b>задължителна</b>.
+        </p>
+      </div>
+
+      <!-- RED -->
+      <div class="level">
+        <h3>
+          <span class="badge red">КОД ЧЕРВЕНО</span>
+        </h3>
+        <p>
+          Това е ситуация, в която човекът представлява <b>неизбежна опасност</b>
+          за своя и/или за живота на околните. Това е подходящ момент да се използват
+          <b>летални методи</b> за разрешаване на ситуацията, но това <b>не е извинение</b>
+          да се целите в главата.
+          Целта на полицията е да <b>спасява животи</b>, а не да ги отнема.
+        </p>
+      </div>
+    </div>
+
+    <footer>© <span id="y"></span> TigerPlexPD</footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
